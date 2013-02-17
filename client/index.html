@@ -63,12 +63,13 @@
 </template>
 
 <template name="target">
-    <div data-role="fieldcontain">
+    <div data-role="fieldcontain" data-value="{{value}}">
         <fieldset data-role="controlgroup" data-type="horizontal">
             <legend><span class="hidden">Number of hits:</span></legend>
+            {{value}}
             {{#each hit}}
-                <input type="radio" name="{{target}}" id="{{target}}-{{count}}" value="{{count}}" {{isChecked}} />
-                <label for="{{target}}-{{count}}">{{count}}</label>
+                <input type="radio" name="{{../value}}" id="{{../value}}-{{count}}" value="{{count}}" {{checked}} class="targetHit" />
+                <label for="{{../value}}-{{count}}">{{count}}</label>
             {{/each}}
         </fieldset>
     </div>

@@ -1,5 +1,7 @@
 var playerGames;
 var genGames = {};
+Session.set('game');
+Session.set('round');
 
 Template.games.games = function () {
   Session.set('playerId', this.userId);
@@ -65,15 +67,17 @@ Template.games.selectedGame = function () {
 };
 
 Template.games.selectedRound = function () {
-  return Session.get('round');
+  var round = Session.get('round');
+  return round;
 };
 
 Template.games.events({
   'click .showGame' : function () {
     // template data, if any, is available in 'this'
     Session.set('game', this._id);
+    Session.set('round');
 
-    var index = genGames[this._id].players[0].id === Session.get("playerId") ? 1 : 0;
+    var index = genGames[this._id].players[0].id === Session.get("playerId") ? 0 : 1;
     Session.set('playerIndex', index);
   }
 });
