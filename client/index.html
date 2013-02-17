@@ -1,0 +1,75 @@
+<head>
+  <title>(Digitally) Play-by-Mail Darts</title>
+</head>
+
+<body>
+    {{> header}}
+    {{> games}}
+</body>
+
+<template name="header">
+    {{loginButtons}}
+</template>
+
+<template name="games">
+    <h1>{{ playerRecord }}</h1>
+    <ul>
+    {{#each games}}
+        {{> game}}
+    {{/each}}
+    </ul>
+
+    {{#if selectedGame}}
+    <div class="rounds">
+        {{> rounds}}
+    </div>
+    {{/if}}
+
+    {{#if selectedRound}}
+    <div class="round">
+        {{> round}}
+    </div>
+    {{/if}}
+
+</template>
+
+<template name="game">
+    <li>
+        <h2>You {{result}} {{opponent}}, {{winningScore}} to {{losingScore}}</h3>
+        <button class="showGame">
+            View
+        </button>
+    </li>
+</template>
+
+<template name="rounds">
+    <h2>Rounds</h2>
+    <ul>
+        {{#each rounds}}
+        <li>
+            <button class="showRound" data-round="{{roundNum}}">{{playerRoundScore}}</button> to {{oppRoundScore}}
+        </li>
+        {{/each}}
+    </ul>
+</template>
+
+<template name="round">
+    <h2>Round #{{roundNum}}</h2>
+    <ul>
+        {{#each target}}
+            <li>{{> target}}</li>
+        {{/each}}
+    </ul>
+</template>
+
+<template name="target">
+    <div data-role="fieldcontain">
+        <fieldset data-role="controlgroup" data-type="horizontal">
+            <legend><span class="hidden">Number of hits:</span></legend>
+            {{#each hit}}
+                <input type="radio" name="{{target}}" id="{{target}}-{{count}}" value="{{count}}" {{isChecked}} />
+                <label for="{{target}}-{{count}}">{{count}}</label>
+            {{/each}}
+        </fieldset>
+    </div>
+</template>
