@@ -1,9 +1,8 @@
 <head>
-  <title>(Digitally) Play-by-Mail Darts</title>
+    <title>(Digitally) Play-by-Mail Darts</title>
 </head>
 
 <body>
-    {{> header}}
     {{> games}}
 </body>
 
@@ -12,33 +11,55 @@
 </template>
 
 <template name="games">
-    <h1>{{ playerRecord }}</h1>
-    <ul>
-    {{#each games}}
-        {{> game}}
-    {{/each}}
-    </ul>
+    <div data-role="page" id="games">
+        <div data-role="header">{{> header}}</div>
+        <div data-role="content">
+            <h1>{{ playerRecord }}</h1>
+            <ul class="games-group">
+            {{#each games}}
+                {{> game}}
+            {{/each}}
+            </ul>
+        </div>
+        <div data-role="footer">{{> footer}}</div>
+    </div>
 
     {{#if selectedGame}}
-    <div class="rounds">
-        {{> rounds}}
+    <div data-role="page" class="rounds page" id="rounds">
+        <div data-role="header">{{> header}}</div>
+        <div data-role="content">
+            {{> rounds}}
+        </div>
+        <div data-role="footer">{{> footer}}</div>
     </div>
     {{/if}}
 
     {{#if selectedRound}}
-    <div class="round">
-        {{> round}}
+    <div data-role="page" class="round page" id="round">
+        <div data-role="header">{{> header}}</div>
+        <div data-role="content">
+            {{> round}}
+        </div>
+        <div data-role="footer">{{> footer}}</div>
     </div>
     {{/if}}
 
 </template>
 
+<template name="footer">
+    <h4>Lamping Associtation of Remote Darts</h4>
+</template>
+
 <template name="game">
-    <li>
-        <h2>You {{result}} {{opponent}}, {{winningScore}} to {{losingScore}}</h3>
-        <button class="showGame">
-            View
-        </button>
+    <li class="games-item row">
+        <span class="span8">
+            <h2>You {{result}} {{opponent}}, {{winningScore}} to {{losingScore}}</h3>
+        </span>
+        <span class="span4" class="game-action-container">
+            <a href="#rounds" class="showGame btn btn-primary">
+                View
+            </a>
+        </span>
     </li>
 </template>
 
@@ -47,7 +68,7 @@
     <ul>
         {{#each rounds}}
         <li>
-            <button class="showRound" data-round="{{roundNum}}">{{playerRoundScore}}</button> to {{oppRoundScore}}
+            <a href="#round" class="showRound" data-round="{{roundNum}}">{{playerRoundScore}}</a> to {{oppRoundScore}}
         </li>
         {{/each}}
     </ul>
