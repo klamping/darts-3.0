@@ -1,8 +1,4 @@
 /* CSS declarations go here */
-.games-item {
-    list-style: none;
-    border-bottom: 1px solid #ccc;
-}
 
 .showGame {
     margin: 5px;

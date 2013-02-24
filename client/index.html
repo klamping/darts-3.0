@@ -10,12 +10,16 @@
     {{loginButtons}}
 </template>
 
+<template name="footer">
+    <h4>Lamping Associtation of Remote Darts</h4>
+</template>
+
 <template name="games">
     <div data-role="page" id="games">
         <div data-role="header">{{> header}}</div>
         <div data-role="content">
             <h1>{{ playerRecord }}</h1>
-            <ul class="games-group">
+            <ul class="nav nav-tabs nav-stacked">
             {{#each games}}
                 {{> game}}
             {{/each}}
@@ -25,37 +29,28 @@
     </div>
 
     {{#if selectedGame}}
-    <div data-role="page" class="rounds page" id="rounds">
-        <div data-role="header">{{> header}}</div>
+    <div class="rounds page" id="rounds">
         <div data-role="content">
             {{> rounds}}
+
+            {{#if selectedRound}}
+            <div class="round" id="round">
+                <div data-role="content">
+                    {{> round}}
+                </div>
+            </div>
+            {{/if}}
         </div>
         <div data-role="footer">{{> footer}}</div>
     </div>
     {{/if}}
 
-    {{#if selectedRound}}
-    <div data-role="page" class="round page" id="round">
-        <div data-role="header">{{> header}}</div>
-        <div data-role="content">
-            {{> round}}
-        </div>
-        <div data-role="footer">{{> footer}}</div>
-    </div>
-    {{/if}}
-
-</template>
-
-<template name="footer">
-    <h4>Lamping Associtation of Remote Darts</h4>
 </template>
 
 <template name="game">
-    <li class="games-item row">
-        <span class="span8">
-            <h2>You {{result}} {{opponent}}, {{winningScore}} to {{losingScore}}</h3>
-        </span>
-        <span class="span4" class="game-action-container">
+    <li class="clearfix">
+        <h2 class="pull-left">You {{result}} {{opponent}}, {{winningScore}} to {{losingScore}}</h3>
+        <span class="pull-right">
             <a href="#rounds" class="showGame btn btn-primary">
                 View
             </a>
@@ -64,34 +59,40 @@
 </template>
 
 <template name="rounds">
-    <h2>Rounds</h2>
-    <ul>
+    <h3>Rounds</h3>
+    <ul class="nav nav-tabs">
         {{#each rounds}}
-        <li>
-            <a href="#round" class="showRound" data-round="{{roundNum}}">{{playerRoundScore}}</a> to {{oppRoundScore}}
+        <li class="{{isSelected}}">
+            <a href="#round" class="showRound" data-round="{{roundNum}}">
+                {{playerRoundScore}} to {{oppRoundScore}}
+            </a>
         </li>
         {{/each}}
     </ul>
 </template>
 
 <template name="round">
-    <h2>Round #{{roundNum}}</h2>
-    <ul>
+    <h4>Round #{{roundNum}}</h4>
+    <ul class="nav">
         {{#each target}}
-            <li>{{> target}}</li>
+            <li class="nav-stacked">{{> target}}</li>
         {{/each}}
     </ul>
 </template>
 
 <template name="target">
     <div data-role="fieldcontain" data-value="{{value}}">
-        <fieldset data-role="controlgroup" data-type="horizontal">
-            <legend><span class="hidden">Number of hits:</span></legend>
+        <fieldset data-role="controlgroup" data-type="horizontal" class="btn-toolbar">
+            <legend class="hidden"><span>Number of hits:</span></legend>
             {{value}}
+            <div class="btn-group">
             {{#each hit}}
-                <input type="radio" name="{{../value}}" id="{{../value}}-{{count}}" value="{{count}}" {{checked}} class="targetHit" />
-                <label for="{{../value}}-{{count}}">{{count}}</label>
+                <label for="{{../value}}-{{count}}" class="btn inline {{isHit}}">
+                    <input type="radio" name="{{../value}}" id="{{../value}}-{{count}}" value="{{count}}" {{checked}} class="targetHit hidden" />
+                    {{count}}
+                </label>
             {{/each}}
+            </div>
         </fieldset>
     </div>
 </template>

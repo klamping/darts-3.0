@@ -35,6 +35,11 @@ var Game = function (model) {
       }
     }
   });
+
+  this.setHit = function (pId, rId, target, hit) {
+    this.players[pId].rounds[rId].hits[target] = hit;
+    //Games.update(model._id, { $set: { this.players[pId].id.rounds[rId][target] : hit }});
+  };
 };
 
 var Player = function (playerId, rounds) {
@@ -58,7 +63,7 @@ var Player = function (playerId, rounds) {
     },
     name: {
       get: function () {
-        var name = Meteor.users.findOne(playerId) ? Meteor.users.findOne(playerId).profile.name : "??";
+        var name = Meteor.users.findOne(playerId) ? Meteor.users.findOne(playerId).username : "??";
         return name;
       }
     }
@@ -67,6 +72,7 @@ var Player = function (playerId, rounds) {
 
 var Round = function (data) {
   this.hits = data;
+
   var values = [15,16,17,18,19,20,25];
 
   Object.defineProperty(this, "total", {

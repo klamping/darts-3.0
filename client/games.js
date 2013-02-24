@@ -1,3 +1,8 @@
+Accounts.ui.config({
+  passwordSignupFields: 'USERNAME_AND_OPTIONAL_EMAIL'
+});
+
+
 var playerGames;
 var genGames = {};
 Session.set('game');
@@ -75,7 +80,7 @@ Template.games.events({
   'click .showGame' : function () {
     // template data, if any, is available in 'this'
     Session.set('game', this._id);
-    Session.set('round');
+    Session.set('round', "0");
 
     var index = genGames[this._id].players[0].id === Session.get("playerId") ? 0 : 1;
     Session.set('playerIndex', index);
